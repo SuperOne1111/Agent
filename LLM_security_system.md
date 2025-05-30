@@ -1,3 +1,16 @@
+**基础流程**
+```mermaid
+flowchart TD
+    A[用户输入] --> B
+    B[/消息结构化/] --> C{"安全检测层"}
+    C -->|攻击特征匹配| D[返回预制拦截响应]
+    C -->|安全| E[主LLM处理]
+    E --> F{系统提示检查}
+    F -->|违反安全协议| G[触发拒绝流程]
+    F -->|合规| H[生成正常响应]
+    H --> I[输出到用户]
+```
+**详细过程说明**
 ```mermaid
 sequenceDiagram
     participant User
@@ -24,15 +37,4 @@ sequenceDiagram
         API_Gateway->>Browser: 返回最终响应
     end
     Browser->>User: 显示结果
-```
-```mermaid
-flowchart TD
-    A[用户输入] --> B
-    B[/消息结构化/] --> C{"安全检测层"}
-    C -->|攻击特征匹配| D[返回预制拦截响应]
-    C -->|安全| E[主LLM处理]
-    E --> F{系统提示检查}
-    F -->|违反安全协议| G[触发拒绝流程]
-    F -->|合规| H[生成正常响应]
-    H --> I[输出到用户]
 ```
